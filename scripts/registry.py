@@ -12,7 +12,10 @@ import urllib.request
 
 ROOT = Path(__file__).resolve().parent.parent
 TOOLS = ROOT / "tools"
-VERSION = re.compile(r"\d+\.\d+\.\d+(?:-(?:(?:alpha|beta|rc)\.\d+|nightly\.\d{14}\.g[0-9a-f]{12}))?")
+NUMBER = r"(?:0|[1-9][0-9]*)"
+VERSION = re.compile(rf"{NUMBER}\.{NUMBER}\.{NUMBER}(?:-(?:(?:alpha|beta|rc)\.{NUMBER}|nightly\.[0-9]{{14}}\.g[0-9a-f]{{12}}))?")
+REPOSITORY = re.compile(r"[A-Za-z0-9-]+/[A-Za-z0-9._-]+")
+ZERO = "0" * 40
 PLATFORMS = {"linux-x64", "linux-arm64", "darwin-x64", "darwin-arm64", "windows-x64"}
 
 
@@ -40,6 +43,11 @@ def save(tool, registry):
 def errors_in(tool, registry):
     errors = []
     repository = registry.get("repository", "")
+    if not REPOSITORY.fullmatch(repository):
+        errors.append(f"{tool}: repository must be owner/name, not {repository!r}")
+    versions = [entry.get("version", "") for entry in registry.get("versions", [])]
+    if all(map(VERSION.fullmatch, versions)) and versions != sorted(versions, key=precedence):
+        errors.append(f"{tool}: versions must be listed oldest to newest")
     seen = set()
     for entry in registry.get("versions", []):
         version = entry.get("version", "")
@@ -59,6 +67,8 @@ def errors_in(tool, registry):
                    f"{tool}-{version}-{platform}.tar.gz")
             if asset.get("url") != url or not re.fullmatch(r"[0-9a-f]{64}", asset.get("sha256", "")):
                 errors.append(f"{tool} {version} {platform}: expected url {url} and a sha256")
+    for name in {channel(version) for version in seen} - set(registry.get("channels", {})):
+        errors.append(f"{tool}: channel {name} is missing")
     for name, version in registry.get("channels", {}).items():
         if name not in {"latest", "beta", "nightly"} or version not in seen or channel(version) != name:
             errors.append(f"{tool}: channel {name} must point at a registered {name} version, not {version}")
@@ -86,14 +96,22 @@ def add(tool, entry):
     save(tool, registry)
 
 
-def at_base(base, tool):
-    shown = subprocess.run(["git", "show", f"{base}:tools/{tool}.json"], cwd=ROOT, capture_output=True, text=True)
-    return json.loads(shown.stdout) if shown.returncode == 0 else {"versions": []}
+def git(*args):
+    return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True, check=True).stdout
+
+
+def at_base(base):
+    """Every tool's registry at `base`; an all-zero base (a branch's first push) has none."""
+    if base == ZERO:
+        return {}
+    git("cat-file", "-e", f"{base}^{{commit}}")
+    paths = git("ls-tree", "--name-only", base, "tools/").split()
+    return {Path(path).stem: json.loads(git("show", f"{base}:{path}")) for path in paths if path.endswith(".json")}
 
 
 def download_sha256(url):
     digest = hashlib.sha256()
-    with urllib.request.urlopen(url) as response:
+    with urllib.request.urlopen(url, timeout=120) as response:
         while chunk := response.read(1 << 20):
             digest.update(chunk)
     return digest.hexdigest()
@@ -101,21 +119,29 @@ def download_sha256(url):
 
 def check(base):
     errors = []
-    for path in sorted(TOOLS.glob("*.json")):
-        tool = path.stem
-        registry = json.loads(path.read_text())
+    registries = {path.stem: json.loads(path.read_text()) for path in sorted(TOOLS.glob("*.json"))}
+    for tool, registry in registries.items():
         errors += errors_in(tool, registry)
-        if base is None:
-            continue
-        previous = {entry["version"]: entry for entry in at_base(base, tool)["versions"]}
-        current = {entry["version"]: entry for entry in registry["versions"]}
-        for version, entry in previous.items():
-            if current.get(version) != entry:
-                errors.append(f"{tool} {version}: published entries can't change or be removed")
-        for version in current.keys() - previous.keys():
-            for platform, asset in current[version]["assets"].items():
+    if base is None:
+        return errors
+    for tool, before in at_base(base).items():
+        after = registries.get(tool, {})
+        if after.get("repository") != before["repository"]:
+            errors.append(f"{tool}: the repository can't change or be removed")
+        current = {entry["version"]: entry for entry in after.get("versions", [])}
+        for entry in before["versions"]:
+            if current.get(entry["version"]) != entry:
+                errors.append(f"{tool} {entry['version']}: published entries can't change or be removed")
+    if errors:
+        return errors
+    previous = {(tool, entry["version"]) for tool, before in at_base(base).items() for entry in before["versions"]}
+    for tool, registry in registries.items():
+        for entry in registry["versions"]:
+            if (tool, entry["version"]) in previous:
+                continue
+            for platform, asset in entry["assets"].items():
                 if download_sha256(asset["url"]) != asset["sha256"]:
-                    errors.append(f"{tool} {version} {platform}: downloaded archive doesn't match its sha256")
+                    errors.append(f"{tool} {entry['version']} {platform}: downloaded archive doesn't match its sha256")
     return errors
 
 

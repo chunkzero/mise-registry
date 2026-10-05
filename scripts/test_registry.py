@@ -54,8 +54,24 @@ class RegistryTest(unittest.TestCase):
             registry.add("chunk", wrong)
 
     def test_rejects_unknown_version_formats(self):
-        with self.assertRaises(SystemExit):
-            registry.add("chunk", entry("0.1.0-nightly.20261004.ge282f11816cd"))
+        for version in ("0.1.0-nightly.20261004.ge282f11816cd", "01.2.3", "1.2.3-beta.01"):
+            with self.assertRaises(SystemExit):
+                registry.add("chunk", entry(version))
+
+    def test_requires_ordered_versions_and_every_channel(self):
+        registry.add("chunk", entry(NIGHTLY))
+        registry.add("chunk", entry(LATER_NIGHTLY))
+        loaded = registry.load("chunk")
+        loaded["versions"].reverse()
+        self.assertTrue(registry.errors_in("chunk", loaded))
+        loaded["versions"].reverse()
+        loaded["channels"] = {}
+        self.assertTrue(registry.errors_in("chunk", loaded))
+
+    def test_rejects_malformed_repositories(self):
+        loaded = registry.load("chunk")
+        loaded["repository"] = "chunkzero/chunk/releases/download/v0.1.0/chunk-0.1.0-linux-x64.tar.gz#"
+        self.assertTrue(registry.errors_in("chunk", loaded))
 
 
 if __name__ == "__main__":
