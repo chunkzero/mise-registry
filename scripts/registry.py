@@ -40,8 +40,31 @@ def save(tool, registry):
     (TOOLS / f"{tool}.json").write_text(json.dumps(registry, indent=2) + "\n")
 
 
-def errors_in(tool, registry):
+def shape_errors(tool, registry):
+    """Structural problems that would stop the rest of validation from reading the file."""
+    if not isinstance(registry, dict) or set(registry) != {"repository", "channels", "versions"}:
+        return [f"{tool}: the registry needs exactly repository, channels and versions"]
     errors = []
+    if not isinstance(registry["repository"], str):
+        errors.append(f"{tool}: repository must be a string")
+    channels = registry["channels"]
+    if not isinstance(channels, dict) or not all(isinstance(value, str) for value in channels.values()):
+        errors.append(f"{tool}: channels must map channel names to versions")
+    versions = registry["versions"]
+    if not isinstance(versions, list):
+        return errors + [f"{tool}: versions must be a list"]
+    for entry in versions:
+        assets = entry.get("assets") if isinstance(entry, dict) else None
+        if not (isinstance(entry, dict) and isinstance(entry.get("version"), str) and isinstance(assets, dict)
+                and all(isinstance(asset, dict) for asset in assets.values())):
+            errors.append(f"{tool}: each version needs a version string and an assets object, not {entry!r}")
+    return errors
+
+
+def errors_in(tool, registry):
+    errors = shape_errors(tool, registry)
+    if errors:
+        return errors
     repository = registry.get("repository", "")
     if not REPOSITORY.fullmatch(repository):
         errors.append(f"{tool}: repository must be owner/name, not {repository!r}")

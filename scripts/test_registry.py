@@ -68,6 +68,13 @@ class RegistryTest(unittest.TestCase):
         loaded["channels"] = {}
         self.assertTrue(registry.errors_in("chunk", loaded))
 
+    def test_rejects_malformed_shapes(self):
+        for broken in ({"repository": "chunkzero/chunk", "channels": {}, "versions": {}},
+                       {"repository": "chunkzero/chunk", "versions": []},
+                       {"repository": "chunkzero/chunk", "channels": {}, "versions": [{"version": "0.1.0"}]},
+                       []):
+            self.assertTrue(registry.errors_in("chunk", broken))
+
     def test_rejects_malformed_repositories(self):
         loaded = registry.load("chunk")
         loaded["repository"] = "chunkzero/chunk/releases/download/v0.1.0/chunk-0.1.0-linux-x64.tar.gz#"
