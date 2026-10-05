@@ -1,0 +1,21 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: Check entries, immutability and archive checksums
+        run: python3 scripts/registry.py check --base "${{ github.event.pull_request.base.sha || github.event.before }}"
