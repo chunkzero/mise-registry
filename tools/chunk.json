@@ -1,5 +1,34 @@
 {
   "repository": "chunkzero/chunk",
-  "channels": {},
-  "versions": []
+  "channels": {
+    "nightly": "0.1.0-nightly.20261005025602.g47c5d08bda27"
+  },
+  "versions": [
+    {
+      "version": "0.1.0-nightly.20261005025602.g47c5d08bda27",
+      "tag": "v0.1.0-nightly.20261005025602.g47c5d08bda27",
+      "assets": {
+        "linux-x64": {
+          "url": "https://github.com/chunkzero/chunk/releases/download/v0.1.0-nightly.20261005025602.g47c5d08bda27/chunk-0.1.0-nightly.20261005025602.g47c5d08bda27-linux-x64.tar.gz",
+          "sha256": "42466d1357faaacb6a58a97145b209c4d096ad4e71a23314236de8ea6be4e36e"
+        },
+        "linux-arm64": {
+          "url": "https://github.com/chunkzero/chunk/releases/download/v0.1.0-nightly.20261005025602.g47c5d08bda27/chunk-0.1.0-nightly.20261005025602.g47c5d08bda27-linux-arm64.tar.gz",
+          "sha256": "a2eda2b53236f56acd5460e30d88640a45b35b262d3c6a728cfd387aac864b19"
+        },
+        "darwin-x64": {
+          "url": "https://github.com/chunkzero/chunk/releases/download/v0.1.0-nightly.20261005025602.g47c5d08bda27/chunk-0.1.0-nightly.20261005025602.g47c5d08bda27-darwin-x64.tar.gz",
+          "sha256": "5cd530f47326f929b413cf90da97d9ae49066e0300f75d0160e5abbdb55ffdb6"
+        },
+        "darwin-arm64": {
+          "url": "https://github.com/chunkzero/chunk/releases/download/v0.1.0-nightly.20261005025602.g47c5d08bda27/chunk-0.1.0-nightly.20261005025602.g47c5d08bda27-darwin-arm64.tar.gz",
+          "sha256": "728cb144099753bad4d6715f4aa7a0389b468d81e47c7efb6f3e468fdbb28320"
+        },
+        "windows-x64": {
+          "url": "https://github.com/chunkzero/chunk/releases/download/v0.1.0-nightly.20261005025602.g47c5d08bda27/chunk-0.1.0-nightly.20261005025602.g47c5d08bda27-windows-x64.tar.gz",
+          "sha256": "cafc7a1f60888f2f9b82d4136c8cdca1ad325f8b00c3e45db1eea34057fc8ea7"
+        }
+      }
+    }
+  ]
 }
