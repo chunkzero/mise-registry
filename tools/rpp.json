@@ -1,5 +1,34 @@
 {
   "repository": "chunkzero/rpp",
-  "channels": {},
-  "versions": []
+  "channels": {
+    "nightly": "0.1.0-nightly.20261005044045.g335e6702930a"
+  },
+  "versions": [
+    {
+      "version": "0.1.0-nightly.20261005044045.g335e6702930a",
+      "tag": "v0.1.0-nightly.20261005044045.g335e6702930a",
+      "assets": {
+        "linux-x64": {
+          "url": "https://github.com/chunkzero/rpp/releases/download/v0.1.0-nightly.20261005044045.g335e6702930a/rpp-0.1.0-nightly.20261005044045.g335e6702930a-linux-x64.tar.gz",
+          "sha256": "68a33a9d3528d59bcfc299d5e894cf8802a4077fc1cd520460e85e2f0d177854"
+        },
+        "linux-arm64": {
+          "url": "https://github.com/chunkzero/rpp/releases/download/v0.1.0-nightly.20261005044045.g335e6702930a/rpp-0.1.0-nightly.20261005044045.g335e6702930a-linux-arm64.tar.gz",
+          "sha256": "c9d7a52ba6698a1b2d4516497396199df553796992c3f6e642f6d8e7500d634e"
+        },
+        "darwin-x64": {
+          "url": "https://github.com/chunkzero/rpp/releases/download/v0.1.0-nightly.20261005044045.g335e6702930a/rpp-0.1.0-nightly.20261005044045.g335e6702930a-darwin-x64.tar.gz",
+          "sha256": "221ab31d60f412edb222a7af03b06490e1177294ad3cfa44f7bb394be9569cc3"
+        },
+        "darwin-arm64": {
+          "url": "https://github.com/chunkzero/rpp/releases/download/v0.1.0-nightly.20261005044045.g335e6702930a/rpp-0.1.0-nightly.20261005044045.g335e6702930a-darwin-arm64.tar.gz",
+          "sha256": "f7fa8927e9ff9978a06b7ed18ec549efb2f969ee167540a231e247cc92022c45"
+        },
+        "windows-x64": {
+          "url": "https://github.com/chunkzero/rpp/releases/download/v0.1.0-nightly.20261005044045.g335e6702930a/rpp-0.1.0-nightly.20261005044045.g335e6702930a-windows-x64.tar.gz",
+          "sha256": "9a2fa617d3ec62a9726dc6d9be5905bc5c73aa39c8ca003e195dddc803a19309"
+        }
+      }
+    }
+  ]
 }
