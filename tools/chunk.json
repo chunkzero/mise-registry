@@ -1,7 +1,7 @@
 {
   "repository": "chunkzero/chunk",
   "channels": {
-    "nightly": "0.1.0-nightly.20261005025602.g47c5d08bda27"
+    "nightly": "0.1.0-nightly.20261005131602.g140d8e740a39"
   },
   "versions": [
     {
@@ -27,6 +27,32 @@
         "windows-x64": {
           "url": "https://github.com/chunkzero/chunk/releases/download/v0.1.0-nightly.20261005025602.g47c5d08bda27/chunk-0.1.0-nightly.20261005025602.g47c5d08bda27-windows-x64.tar.gz",
           "sha256": "cafc7a1f60888f2f9b82d4136c8cdca1ad325f8b00c3e45db1eea34057fc8ea7"
+        }
+      }
+    },
+    {
+      "version": "0.1.0-nightly.20261005131602.g140d8e740a39",
+      "tag": "v0.1.0-nightly.20261005131602.g140d8e740a39",
+      "assets": {
+        "linux-x64": {
+          "url": "https://github.com/chunkzero/chunk/releases/download/v0.1.0-nightly.20261005131602.g140d8e740a39/chunk-0.1.0-nightly.20261005131602.g140d8e740a39-linux-x64.tar.gz",
+          "sha256": "dcf37663f0a87fff80471c15530a1ad85aca0bcf081ab345cc86cf8e31fce79c"
+        },
+        "linux-arm64": {
+          "url": "https://github.com/chunkzero/chunk/releases/download/v0.1.0-nightly.20261005131602.g140d8e740a39/chunk-0.1.0-nightly.20261005131602.g140d8e740a39-linux-arm64.tar.gz",
+          "sha256": "39e2aa4ca8152805051be8a4164ed316e182a3880f262bc8e24fd28ef97d5466"
+        },
+        "darwin-x64": {
+          "url": "https://github.com/chunkzero/chunk/releases/download/v0.1.0-nightly.20261005131602.g140d8e740a39/chunk-0.1.0-nightly.20261005131602.g140d8e740a39-darwin-x64.tar.gz",
+          "sha256": "bbbe7e12925de4da3683638b50186017f29329cb8a59d14bf7574bf166f78a5b"
+        },
+        "darwin-arm64": {
+          "url": "https://github.com/chunkzero/chunk/releases/download/v0.1.0-nightly.20261005131602.g140d8e740a39/chunk-0.1.0-nightly.20261005131602.g140d8e740a39-darwin-arm64.tar.gz",
+          "sha256": "6396dc020bdf308fb41db67205a4f1bd98837d6206f755fee2028f3c45d0e7e8"
+        },
+        "windows-x64": {
+          "url": "https://github.com/chunkzero/chunk/releases/download/v0.1.0-nightly.20261005131602.g140d8e740a39/chunk-0.1.0-nightly.20261005131602.g140d8e740a39-windows-x64.tar.gz",
+          "sha256": "535b08261bbca1ad3fe659e8f75a941c483876a65ebac2e07bbf5ced3740e768"
         }
       }
     }
