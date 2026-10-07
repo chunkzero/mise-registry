@@ -1,7 +1,7 @@
 {
   "repository": "chunkzero/rpp",
   "channels": {
-    "nightly": "0.1.0-nightly.20261005182523.g09faa791490c"
+    "nightly": "0.1.0-nightly.20261006214708.g283c4a150eae"
   },
   "versions": [
     {
@@ -53,6 +53,32 @@
         "windows-x64": {
           "url": "https://github.com/chunkzero/rpp/releases/download/v0.1.0-nightly.20261005182523.g09faa791490c/rpp-0.1.0-nightly.20261005182523.g09faa791490c-windows-x64.tar.gz",
           "sha256": "b64995844b89e9974d2f21ca7e87b77d41b2b4141ced82298b8806d1ae2c63e5"
+        }
+      }
+    },
+    {
+      "version": "0.1.0-nightly.20261006214708.g283c4a150eae",
+      "tag": "v0.1.0-nightly.20261006214708.g283c4a150eae",
+      "assets": {
+        "linux-x64": {
+          "url": "https://github.com/chunkzero/rpp/releases/download/v0.1.0-nightly.20261006214708.g283c4a150eae/rpp-0.1.0-nightly.20261006214708.g283c4a150eae-linux-x64.tar.gz",
+          "sha256": "027dbc4ed2139b2e42a7ca714cf3d9c1cf4ab640016a74e412af37a3c5cd5e44"
+        },
+        "linux-arm64": {
+          "url": "https://github.com/chunkzero/rpp/releases/download/v0.1.0-nightly.20261006214708.g283c4a150eae/rpp-0.1.0-nightly.20261006214708.g283c4a150eae-linux-arm64.tar.gz",
+          "sha256": "ac0a9656fcbf25beca24e6f5fe4542d5780c1a468daa5a9d8501deaa856a822e"
+        },
+        "darwin-x64": {
+          "url": "https://github.com/chunkzero/rpp/releases/download/v0.1.0-nightly.20261006214708.g283c4a150eae/rpp-0.1.0-nightly.20261006214708.g283c4a150eae-darwin-x64.tar.gz",
+          "sha256": "81f3ab0d3ac6ed7e6c3090053aac17891e2bf55cd25e5b508efc8b88941c2c64"
+        },
+        "darwin-arm64": {
+          "url": "https://github.com/chunkzero/rpp/releases/download/v0.1.0-nightly.20261006214708.g283c4a150eae/rpp-0.1.0-nightly.20261006214708.g283c4a150eae-darwin-arm64.tar.gz",
+          "sha256": "a9b2611ac2a7766983809ce8b020f9db8de4deb441b91e03cc2759281194fb05"
+        },
+        "windows-x64": {
+          "url": "https://github.com/chunkzero/rpp/releases/download/v0.1.0-nightly.20261006214708.g283c4a150eae/rpp-0.1.0-nightly.20261006214708.g283c4a150eae-windows-x64.tar.gz",
+          "sha256": "c2f984e561b7de939faf41f74dd399a626dcb9cb2d8dfd57cc451ed2ec06aa32"
         }
       }
     }
